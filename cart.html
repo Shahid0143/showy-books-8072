@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+    }
+    .page-title{
+        text-align: center;
+    }
+   #parent{
+        display: grid;
+        width: 90%;
+        margin: auto;
+        gap: 20px;
+        /* grid-template-columns: repeat(4,auto); */
+    }
+    .box{
+        /* border: 2px solid rgb(5, 2, 112); */
+        background: linear-gradient(45deg , rgb(209, 209, 209) , white);
+        background-size: 200%;
+        padding: 10px;
+        display: flex;
+        justify-content: space-around;
+        border-radius: 86px;
+    }
+    .box > div{
+       width: 400px;
+    }
+    .images{
+       width: 100%;
+       height: 300px;
+       object-fit: cover;
+    }
+    #nav{
+        display: flex;
+        background: black;
+        color: white;
+        gap: 30px;
+    }
+</style>
+<body>
+    <h1 class="page-title">welcome to cart page</h1>
+    <div id="parent"></div>
+
+</body>
+<script>
+    let parent = document.getElementById('parent')
+    let data = JSON.parse(localStorage.getItem('cart'))
+    console.log(data);
+    actorList(data)
+    function actorList(data){
+        let sum = 0
+        data.forEach((element , i) => {
+            let box_div = document.createElement('div')
+            let box_div1 = document.createElement('div')
+            box_div.classList.add('box')
+            let title = document.createElement('h1')
+            title.innerText = element.title
+            let age_hero = document.createElement('p')
+            age_hero.innerText = element.price
+            let img = document.createElement('img')
+            img.src = element.image
+            img.classList.add('images')
+            box_div1.append(img)
+            box_div.append( box_div1,title , age_hero  )
+            parent.append(box_div)
+            sum = sum + element.price
+        });
+        let div_total = document.createElement('div')
+        let total_price = document.createElement('h2')
+        total_price.innerText = `Total Price`+sum;
+        total_price.style.textAlign = 'center'
+        div_total.append(total_price)
+        parent.append(div_total)
+
+
+
+
+    }
+    
+</script>
+</html>

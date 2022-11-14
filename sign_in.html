@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+    <style>
+      #main {
+        margin: auto;
+        width: 30%;
+        text-align: center;
+      }
+      #main img {
+        display: block;
+        margin: auto;
+        padding: 33px 23px 40px 10px;
+      }
+      #main > form > label {
+        margin-right: 75%;
+      }
+      #main > form > input {
+        margin: 2px 0px 25px 0px;
+        width: 90%;
+        height: 40px;
+        border-radius: 10px;
+        border: 1px solid rgb(110, 107, 107);
+        border-color: rgb(144, 145, 146);
+      }
+      h2 {
+        text-align: center;
+      }
+      #main > form {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        padding: 10px;
+        border-radius: 10px;
+        margin-top: 60px;
+      }
+      #main > form > button {
+        margin: 25px 0px 20px 0px;
+        width: 92%;
+        height: 40px;
+        border-radius: 10px;
+        border: 1px solid rgb(110, 107, 107);
+        border-color: rgb(144, 145, 146);
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <img
+        src="https://images.ctfassets.net/5de70he6op10/7q3Z6vJ6UEPFyAPKAFZZxl/1a22eec777828277571187c43306e983/Anthropologie_Holiday_Lockup__1_update.svg"
+        alt=""
+      />
+      <p></p>
+      <form action="">
+        <h2>Sing In</h2>
+        <label for="">Email Id</label><br />
+        <input id="email2" type="text" placeholder="  Enter email" /><br />
+        <label for="">Password</label><br />
+        <input
+          id="pass2"
+          type="password"
+          placeholder="  Enter Password"
+        /><br />
+        <button>SING IN</button><br />
+        <button>
+          <i class="fa-brands fa-google"></i> Continue with Google
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
+<script>
+  document.querySelector("button").addEventListener("click", myfun1);
+
+  let pass1 = localStorage.getItem("pass1");
+  let email1 = localStorage.getItem("email1");
+  //console.log(pass1,email1)
+
+  function myfun1(event) {
+    event.preventDefault();
+
+    let email2 = document.getElementById("email2").value;
+    let pass2 = document.getElementById("pass2").value;
+    //console.log(email2,pass2,"22");
+
+    if (email2 == email1) {
+      if (pass2 == pass1) {
+        document.querySelector("p").innerText = "Login Sucessfully";
+        document.querySelector("p").style.color = "green";
+        window.location = "home.html";
+      } else {
+        document.querySelector("p").innerText = "Worng Passowrd ";
+        document.querySelector("p").style.color = "red";
+      }
+      // console.log("login")
+    } else if (email2 !== email1 && pass2 !== pass1) {
+      document.querySelector("p").innerText = "Worng Email or Passowrd ";
+      document.querySelector("p").style.color = "red";
+      //console.log("not log in")
+    } else {
+      document.querySelector("p").innerText = "Worng Email ";
+      document.querySelector("p").style.color = "red";
+    }
+  }
+</script>

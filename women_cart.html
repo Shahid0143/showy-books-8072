@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #parent{
+        display: grid;
+        /* border: 2px solid red; */
+        gap: 20px;
+        grid-template-columns: repeat(4,auto);
+    }
+    .box{
+        border: 2px solid rgb(5, 2, 112);
+        padding: 10px;
+    }
+    .images{
+       width: 100%;
+       height: 300px;
+       object-fit: cover;
+    }
+    #nav{
+        display: flex;
+        background: black;
+        color: white;
+        gap: 30px;
+    }
+    .cart{
+        position: absolute;
+        right: 10px;
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        color: white;
+        font-weight: 600;
+        border: 6px solid rgb(173, 173, 173);
+       
+    }
+    .cart img{
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+
+    }
+    #info{
+        position: absolute;
+        z-index: 5;
+        right: 30px;
+        top: 50px ;
+        /* height: 10px; */
+        background: red;
+        padding: 10px;
+        color: white;
+        border-radius: 50%;
+        display: none;
+    }
+    #parent>box_div1>cart{
+     background-color: red;
+    }
+</style>
+<body>
+    <a class="cart" href="">
+        <img src="https://static.vecteezy.com/system/resources/previews/004/999/463/original/shopping-cart-icon-illustration-free-vector.jpg" alt="">
+    </a>
+    <p id="info">0</p>
+    <div id="nav"></div>
+    <div id="parent"></div>
+</body>
+<script>
+    let parent = document.getElementById('parent')
+    let nav = document.getElementById('nav')
+    let cart_item_info = document.getElementById('info')
+    let cart_arr = JSON.parse(localStorage.getItem('cart'))
+    if (cart_arr) {
+        cart_item_info.innerText = cart_arr.length
+        cart_item_info.style.display = 'block'
+    }
+    let arr=[{
+    image :"https://images.urbndata.com/is/image/Anthropologie/53108122_072_b?$an-category$&fit=constrain&fmt=webp&hei=523&qlt=80&wid=349",
+    title : "Silent D Kitten-Heel Slouch Boots",
+    price : "$270.50",
+    color : "6 colors"
+ },
+ {
+    image :"https://images.urbndata.com/is/image/Anthropologie/66297565_012_b3?$an-category$&fit=constrain&fmt=webp&hei=523&qlt=80&wid=349",
+    title : "Bibi Lou Aoi Heels",
+    price : "$279.50",
+    color : "6 colors"
+ },
+ {
+    image :"https://images.urbndata.com/is/image/Anthropologie/63063689_061_b?$an-category$&fit=constrain&fmt=webp&hei=523&qlt=80&wid=349",
+    title : "Kelsi Dagger Brooklyn Logan Over-The-Knee Boots",
+    price : "$277.50",
+    color : "6 colors"
+ },
+ {
+    image :"https://images.urbndata.com/is/image/Anthropologie/67684720_004_a?$an-category$&fit=constrain&fmt=webp&hei=523&qlt=80&wid=349",
+    title : "New Balance 237 Sneakers",
+    price : "$273.50",
+    color : "6 colors"
+ },
+ {
+    image :"https://images.urbndata.com/is/image/Anthropologie/59470294_263_b?$an-category$&fit=constrain&fmt=webp&hei=523&qlt=80&wid=349",
+    title : "Birkenstock Boston Shearling Clogs",
+    price : "$170.50",
+    color : "6 colors"
+ },
+ {
+    image :"https://images.urbndata.com/is/image/Anthropologie/79529988_027_b?$an-category$&fit=constrain&fmt=webp&hei=523&qlt=80&wid=349",
+    title : "Esska Charlie Heels",
+    price : "$227.50",
+    color : "6 colors"
+ },
+ {
+    image :"https://images.urbndata.com/is/image/Anthropologie/79086542_030_b?$an-category$&fit=constrain&fmt=webp&hei=523&qlt=80&wid=349",
+    title : "Larroudé Ari Heels",
+    price : "$350.50",
+    color : "6 colors"
+ },
+ {
+    image :"https://images.urbndata.com/is/image/Anthropologie/69059533_045_b?$an-category$&fit=constrain&fmt=webp&hei=523&qlt=80&wid=349",
+    title : "Birkenstock Arizona Teddy Sandals",
+    price : "$180.50",
+    color : "6 colors"
+ },
+ {
+    image :"https://images.urbndata.com/is/image/Anthropologie/67776534_001_b?$an-category$&fit=constrain&fmt=webp&hei=523&qlt=80&wid=349",
+    title : "Sorel Tivoli IV Boots",
+    price : "$145.50",
+    color : "6 colors"
+ },
+ {
+    image :"https://images.urbndata.com/is/image/Anthropologie/66297565_012_b?$an-category$&fit=constrain&fmt=webp&hei=523&qlt=80&wid=349",
+    title : "Bibi Lou Aoi Heels",
+    price : "$187.50",
+    color : "6 colors"
+ },
+ {
+    image :"https://images.urbndata.com/is/image/Anthropologie/63060966_221_b?$an-category$&fit=constrain&fmt=webp&hei=523&qlt=80&wid=349",
+    title : "Kelsi Dagger Brooklyn Lens Suede Loafers",
+    price : "$1",
+    color : "6 colors"
+ },
+];
+
+
+    function actorList(data){
+        data.forEach((element , i) => {
+            let box_div = document.createElement('div')
+            let box_div1 = document.createElement('div')
+            box_div.classList.add('box')
+            let title = document.createElement('h1')
+            title.innerText = element.title
+            let age_hero = document.createElement('p')
+            age_hero.innerText = element.price
+            let img = document.createElement('img')
+            img.src = element.image
+            img.classList.add('images')
+            let button = document.createElement('button')
+            button.innerText = "Delete"
+            let cart = document.createElement('button')
+            cart.innerText = "ADD To Cart"
+
+            button.onclick = function (){
+                clickRemove(element ,i)
+            }
+            box_div1.onclick = function (){
+                storeValue(element)
+            }
+            cart.onclick = function (){
+                goToCart(element)
+            }
+            box_div1.append(img)
+            box_div.append( box_div1,cart,title ,age_hero  )
+            document.querySelector("#parent").append(box_div )
+        });
+    }
+
+    
+    function goToCart(element){
+        console.log(element);
+       
+        let cart_arr = JSON.parse(localStorage.getItem('cart'))
+        if ( cart_arr === null) {
+            localStorage.setItem("cart" , JSON.stringify([element]))
+        }
+        else{
+            cart_arr.push(element)
+            localStorage.setItem("cart" , JSON.stringify(cart_arr))
+        }
+        cart_item_info.innerText = cart_arr.length
+        cart_item_info.style.display = 'block'
+      
+    }
+
+    
+    function clickRemove(element,i){
+        arr.splice(i,1) 
+        parent.innerHTML = null
+        actorList(arr)
+    }
+    function storeValue(element){
+        console.log(element);
+        localStorage.setItem("item" , JSON.stringify(element))
+        window.location.href = 'about.html'
+    }
+
+    actorList(arr)
+
+ 
+</script>
+</html>
